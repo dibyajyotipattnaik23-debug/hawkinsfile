@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { insforge } from './insforge';
 
 export type PeerState = 'disconnected' | 'connecting' | 'connected';
@@ -80,7 +80,7 @@ export function useWebRTC(portalCode: string, addLog: (m: string, t?: 'info'|'wa
           setTransferProgress(0);
         } else if (msg.type === 'file-end') {
           addLog(`PAYLOAD RECEIVED. RECONSTRUCTING MATTER...`, 'warn');
-          const blob = new Blob(receiveBufferRef.current);
+          const blob = new Blob(receiveBufferRef.current as unknown as BlobPart[]);
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.style.display = 'none';
